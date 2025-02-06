@@ -4,7 +4,7 @@ echo "<br>";
 $score = 0;
 
 while(true){
-    $x=rand(1,6);
+    $x=rand(1,6); 
 echo "the person rolled a die and he got $x";
 if($x==6){
     echo "the game is over";
