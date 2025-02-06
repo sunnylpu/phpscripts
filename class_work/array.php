@@ -17,4 +17,8 @@ echo "<br>";echo "<br>";
 if(in_array("Apple", $fruits)){
     echo "the fruit is present";
 }
+
+
+$cars=["zen","maruti","fiat"];
+print_r($cars);
 ?>
