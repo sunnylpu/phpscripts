@@ -21,4 +21,9 @@ if(in_array("Apple", $fruits)){
 
 $cars=["zen","maruti","fiat"];
 print_r($cars);
+echo "<br>";
+
+foreach($cars as $cars){
+    
+}
 ?>
