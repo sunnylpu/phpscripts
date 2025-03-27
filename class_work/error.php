@@ -1,15 +1,26 @@
 <?php
-// Custom error handler function
+
 function customError($errno, $errstr, $errfile, $errline) {
     echo "<b>Error:</b> [$errno] $errstr<br>";
     echo "Error on line $errline in file $errfile<br>";
-    // Optionally log the error to a file
+
     error_log("Error: [$errno] $errstr in $errfile on line $errline", 3, "errors.log");
 }
 
-// Set custom error handler
+
 set_error_handler("customError");
 
-// Trigger an error (for testing purposes)
-echo $undefinedVariable; // Notice: Undefined variable
+$file = fopen("example.txt", "w");
+if (!$file) {
+    trigger_error("Failed to open file in write mode", E_USER_WARNING);
+} else {
+    fwrite($file, "This is a test content.\n");
+    fclose($file);
+}
+
+if (isset($file) && is_resource($file)) {
+    fclose($file);
+}
+
+echo $undefinedVariable;
 ?>
