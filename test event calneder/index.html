@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-10">
+            <h1 class="text-4xl font-bold text-center text-indigo-700">Event Calendar</h1>
+            <p class="text-center text-gray-600 mt-2">Plan your schedule with our interactive calendar</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Calendar Section -->
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <div id="calendar" class="fc fc-media-screen fc-direction-ltr"></div>
+            </div>
+
+            <!-- Event Form Section -->
+            <div class="lg:col-span-1 bg-white rounded-lg shado  w-md p-6">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Add New Event</h2>
+                <form id="eventForm" class="space-y-4">
+                    <div>
+                        <label for="eventTitle" class="block text-sm font-medium text-gray-700 mb-1">Event Title</label>
+                        <input type="text" id="eventTitle" name="eventTitle" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    
+                    <div>
+                        <label for="eventStart" class="block text-sm font-medium text-gray-700 mb-1">Start Date & Time</label>
+                        <input type="datetime-local" id="eventStart" name="eventStart" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    
+                    <div>
+                        <label for="eventEnd" class="block text-sm font-medium text-gray-700 mb-1">End Date & Time</label>
+                        <input type="datetime-local" id="eventEnd" name="eventEnd" required 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    
+                    <div>
+                        <label for="eventColor" class="block text-sm font-medium text-gray-700 mb-1">Event Color</label>
+                        <select id="eventColor" name="eventColor" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="#4F46E5">Indigo</option>
+                            <option value="#10B981">Green</option>
+                            <option value="#EF4444">Red</option>
+                            <option value="#F59E0B">Yellow</option>
+                            <option value="#3B82F6">Blue</option>
+                            <option value="#8B5CF6">Purple</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="eventDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea id="eventDescription" name="eventDescription" rows="3" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300">
+                            Add Event
+                        </button>
+                        <button type="button" id="clearForm" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300">
+                            Clear
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Event List Section -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Your Events</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsList" class="bg-white divide-y divide-gray-200">
+                        <!-- Events will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-semibold text-indigo-700" id="modalTitle">Event Details</h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="modalContent" class="space-y-4">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html> 

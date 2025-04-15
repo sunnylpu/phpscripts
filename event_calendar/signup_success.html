@@ -1,0 +1,54 @@
+<?php
+// Optionally, start a session or do any additional logic
+// session_start();
+// $_SESSION['username'] = $username;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+            background-color: #f0f8ff;
+        }
+        .success-box {
+            display: inline-block;
+            padding: 30px;
+            background-color: #4F46E5;
+            color: white;
+            border-radius: 10px;
+        }
+        .success-box h2 {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-box">
+    <h2>Sign Up Successful!</h2>
+    <p>Your account has been created successfully.</p>
+    <a href="login.php" class="btn">Go to Login</a>
+</div>
+
+</body>
+</html>

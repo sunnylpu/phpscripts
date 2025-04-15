@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Event Calendar</h1>
+            <p>Plan your schedule with our interactive calendar</p>
+            <div class="auth-buttons" style="position: absolute; top: 20px; right: 30px;">
+                <a href="login.php" style="margin-left: 10px; padding: 8px 15px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Login</a>
+                <a href="signup.php" style="margin-left: 10px; padding: 8px 15px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Sign Up</a>
+            </div>
+            
+            
+        </header>
+
+        <div class="main-content">
+            <div class="calendar-section">
+                <div id="calendar"></div>
+            </div>
+
+            <div class="event-form-section">
+                <h2>Add New Event</h2>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventStart">Start Date & Time</label>
+                        <input type="datetime-local" id="eventStart" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventEnd">End Date & Time</label>
+                        <input type="datetime-local" id="eventEnd" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventColor">Event Color</label>
+                        <select id="eventColor">
+                            <option value="#4F46E5">Indigo</option>
+                            <option value="#10B981">Green</option>
+                            <option value="#EF4444">Red</option>
+                            <option value="#F59E0B">Yellow</option>
+                            <option value="#3B82F6">Blue</option>
+                            <option value="#8B5CF6">Purple</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group notification-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enableNotification">
+                            Enable Notification
+                        </label>
+                        <div class="notification-options" id="notificationOptions">
+                            <label for="notificationTime">Notify before:</label>
+                            <select id="notificationTime">
+                                <option value="5">5 minutes</option>
+                                <option value="15">15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="60">1 hour</option>
+                                <option value="1440">1 day</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Add Event</button>
+                        <button type="button" id="clearForm" class="secondary-btn">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="event-list-section">
+            <h2>Your Events</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsList">
+                        <!-- Events will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Event Details</h3>
+                <button id="closeModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="modal-body">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
